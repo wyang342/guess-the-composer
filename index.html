@@ -3,26 +3,29 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Guess the Composer!</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Raleway"
+    />
     <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
 
   <body>
-    <h1>Guess the Composer</h1>
-    <div class="main">
+    <main>
+      <h1>Guess the Composer!</h1>
       <p id="pieceName"></p>
 
       <form id="form">
-        Guess the name of the composer:
-        <input id="text" type="text" name="guessHere" />
+        Guess composer name:
+        <input id="input" type="text" name="guessHere" />
         <input type="button" id="submit" value="submit" />
       </form>
 
-	  <p id='correctGuesses'></p>
-	  <p id='result'></p>
-    </div>
-
+      <p id="correctGuesses"></p>
+      <p id="result"></p>
+    </main>
     <script src="scripts.js"></script>
   </body>
 </html>

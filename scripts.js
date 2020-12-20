@@ -5,10 +5,13 @@ const essentialComposers = baseUrl + "composer/list/rec.json";
 // Selecting divs
 const pOfPiece = document.getElementById("pieceName");
 const pOfResult = document.getElementById('result');
+const inputField = document.getElementById('input');
+const submitButton = document.getElementById("submit");
 
 // Initialize
 let correctGuesses = 0;
 updateCorrectGuesses();
+listenForEnter();
 start();
 
 // Gets a random Essential Composer
@@ -40,10 +43,10 @@ function getPiece(id) {
 };
 
 function listenForSubmit(composerName) {
-	const submitButton = document.getElementById("submit");
 	submitButton.addEventListener("click", function listener () {
-		const inputField = document.getElementById('text');
-		if (inputField.value == composerName) {
+		if (inputField.value == "") {
+			// pass
+		} else if (inputField.value == composerName) {
 			pOfResult.textContent = "Correct!";
 			correctGuesses++;
 			updateCorrectGuesses();
@@ -53,6 +56,16 @@ function listenForSubmit(composerName) {
 			pOfResult.textContent = "Incorrect!";
 			submitButton.removeEventListener('click', listener);
 			start();
+		};
+	});
+};
+
+function listenForEnter() {
+	inputField.addEventListener('keydown', function(event) {
+		if (event.keyCode === 13) {
+			event.preventDefault();
+			submitButton.click();
+			inputField.value = "";
 		};
 	});
 };
