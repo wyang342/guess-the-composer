@@ -10,14 +10,17 @@
 
   <body>
     <h1>Guess the Composer</h1>
-    <div id="pieceName"></div>
-    <div id="composerName"></div>
-    <div>
+    <div class="main">
+      <p id="pieceName"></p>
+
       <form id="form">
         Guess the name of the composer:
-        <input id='text' type="text" name="guessHere" />
+        <input id="text" type="text" name="guessHere" />
         <input type="button" id="submit" value="submit" />
       </form>
+
+	  <p id='correctGuesses'></p>
+	  <p id='result'></p>
     </div>
 
     <script src="scripts.js"></script>

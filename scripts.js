@@ -3,17 +3,23 @@ const baseUrl = "https://api.openopus.org/";
 const essentialComposers = baseUrl + "composer/list/rec.json";
 
 // Selecting divs
-const divOfPiece = document.getElementById("pieceName");
-const divOfComposer = document.getElementById("composerName");
+const pOfPiece = document.getElementById("pieceName");
+const pOfResult = document.getElementById('result');
 
-function getComposer() {
+// Initialize
+let correctGuesses = 0;
+start();
+updateCorrectGuesses();
+
+// Gets a random Essential Composer
+function start() {
 	axios.get(essentialComposers)
 		.then(data => {
 			const composers = data["data"]["composers"];
 			const num = Math.floor((Math.random() * 77));
 			const composerID = composers[num]["id"];
 			const composerName = composers[num]["name"];
-			divOfComposer.textContent = "Composer: " + composerName;
+			console.log(composerName);
 			getPiece(composerID);
 			listenForSubmit(composerName);
 		})
@@ -28,7 +34,7 @@ function getPiece(id) {
 			const numOfWorks = composerWorks.length;
 			const numOfWork = Math.floor((Math.random() * numOfWorks));
 			const title = composerWorks[numOfWork]["title"];
-			divOfPiece.textContent = "Piece: " + title;
+			pOfPiece.textContent = "Piece: " + title;
 		})
 		.catch(err => console.log(err));
 };
@@ -38,11 +44,16 @@ function listenForSubmit(composerName) {
 	submitButton.addEventListener("click", () => {
 		const inputField = document.getElementById('text');
 		if (inputField.value == composerName) {
-			console.log("Correct!");
+			pOfResult.textContent = "Correct!";
+			correctGuesses++;
+			updateCorrectGuesses();
 		} else {
-			console.log("Incorrect.");
-		}
+			pOfResult.textContent = "Incorrect!";
+		};
 	});
 };
 
-getComposer();
+function updateCorrectGuesses() {
+	const displayCorrectGuesses = document.getElementById('correctGuesses');
+	displayCorrectGuesses.textContent = "Correct Guesses: " + correctGuesses;
+}
