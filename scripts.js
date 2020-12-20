@@ -1,6 +1,7 @@
 // URL Endpoints
 const baseUrl = "https://api.openopus.org/";
 const essentialComposers = baseUrl + "composer/list/rec.json";
+const popularComposers = baseUrl + "composer/list/pop.json"; 
 
 // Selecting DOM elements
 const pOfPiece = document.getElementById("pieceName");
@@ -14,12 +15,12 @@ updateCorrectGuesses();
 listenForEnter();
 start();
 
-// Gets a random Essential Composer
+// Gets a random Composer
 function start() {
-	axios.get(essentialComposers)
+	axios.get(popularComposers)
 		.then(data => {
 			const composers = data["data"]["composers"];
-			const num = Math.floor((Math.random() * 77));
+			const num = Math.floor((Math.random() * 23));
 			const composerID = composers[num]["id"];
 			const composerName = composers[num]["name"];
 			const normalizedComposerName = composerName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
