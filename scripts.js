@@ -43,16 +43,22 @@ function getPiece(id) {
 };
 
 function listenForSubmit(composerName) {
-	submitButton.addEventListener("click", function listener () {
+	submitButton.addEventListener("click", function listener() {
 		if (inputField.value == "") {
 			// pass
 		} else if (inputField.value == composerName) {
+			pOfResult.style.animation = 'none';
+			pOfResult.offsetHeight;
+			pOfResult.style.animation = null;
 			pOfResult.textContent = "Correct!";
 			correctGuesses++;
 			updateCorrectGuesses();
 			submitButton.removeEventListener('click', listener);
 			start();
 		} else {
+			pOfResult.style.animation = 'none';
+			pOfResult.offsetHeight;
+			pOfResult.style.animation = null;
 			pOfResult.textContent = "Incorrect!";
 			submitButton.removeEventListener('click', listener);
 			start();
@@ -61,7 +67,7 @@ function listenForSubmit(composerName) {
 };
 
 function listenForEnter() {
-	inputField.addEventListener('keydown', function(event) {
+	inputField.addEventListener('keydown', function (event) {
 		if (event.keyCode === 13) {
 			event.preventDefault();
 			submitButton.click();

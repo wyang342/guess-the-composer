@@ -11,17 +11,12 @@ form {
 	padding-bottom: 20px;
 }
 
-@keyframes correct {
-	from {color: green;}
-	to {color: red;}
-}
-
-@keyframes incorrect {
-	from {color: red;}
-	to {color: green;}
+@keyframes updateResult {
+	from {transform: scale(1.2);}
+	to {transform: scale(1.0);}
 }
 
 #result {
-	animation-name: correct;
-	animation-duration: 2s;
+	animation: updateResult 0.5s;
+	animation-timing-function: ease-out;
 }
