@@ -8,8 +8,8 @@ const pOfResult = document.getElementById('result');
 
 // Initialize
 let correctGuesses = 0;
-start();
 updateCorrectGuesses();
+start();
 
 // Gets a random Essential Composer
 function start() {
@@ -41,14 +41,18 @@ function getPiece(id) {
 
 function listenForSubmit(composerName) {
 	const submitButton = document.getElementById("submit");
-	submitButton.addEventListener("click", () => {
+	submitButton.addEventListener("click", function listener () {
 		const inputField = document.getElementById('text');
 		if (inputField.value == composerName) {
 			pOfResult.textContent = "Correct!";
 			correctGuesses++;
 			updateCorrectGuesses();
+			submitButton.removeEventListener('click', listener);
+			start();
 		} else {
 			pOfResult.textContent = "Incorrect!";
+			submitButton.removeEventListener('click', listener);
+			start();
 		};
 	});
 };
