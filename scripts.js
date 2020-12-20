@@ -2,7 +2,7 @@
 const baseUrl = "https://api.openopus.org/";
 const essentialComposers = baseUrl + "composer/list/rec.json";
 
-// Selecting divs
+// Selecting DOM elements
 const pOfPiece = document.getElementById("pieceName");
 const pOfResult = document.getElementById('result');
 const inputField = document.getElementById('input');
@@ -22,9 +22,10 @@ function start() {
 			const num = Math.floor((Math.random() * 77));
 			const composerID = composers[num]["id"];
 			const composerName = composers[num]["name"];
-			console.log(composerName);
+			const normalizedComposerName = composerName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+			console.log(normalizedComposerName);
 			getPiece(composerID);
-			listenForSubmit(composerName);
+			listenForSubmit(normalizedComposerName);
 		})
 		.catch(err => console.log(err));
 }
@@ -44,21 +45,17 @@ function getPiece(id) {
 
 function listenForSubmit(composerName) {
 	submitButton.addEventListener("click", function listener() {
-		if (inputField.value == "") {
+		if (inputField.value.toLowerCase() == "") {
 			// pass
-		} else if (inputField.value == composerName) {
-			pOfResult.style.animation = 'none';
-			pOfResult.offsetHeight;
-			pOfResult.style.animation = null;
+		} else if (inputField.value.toLowerCase() == composerName) {
+			restartAnimation();
 			pOfResult.textContent = "Correct!";
 			correctGuesses++;
 			updateCorrectGuesses();
 			submitButton.removeEventListener('click', listener);
 			start();
 		} else {
-			pOfResult.style.animation = 'none';
-			pOfResult.offsetHeight;
-			pOfResult.style.animation = null;
+			restartAnimation();
 			pOfResult.textContent = "Incorrect!";
 			submitButton.removeEventListener('click', listener);
 			start();
@@ -79,4 +76,10 @@ function listenForEnter() {
 function updateCorrectGuesses() {
 	const displayCorrectGuesses = document.getElementById('correctGuesses');
 	displayCorrectGuesses.textContent = "Correct Guesses: " + correctGuesses;
+}
+
+function restartAnimation() {
+	pOfResult.style.animation = 'none';
+	pOfResult.offsetHeight;
+	pOfResult.style.animation = null;
 }
