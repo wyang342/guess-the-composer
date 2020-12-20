@@ -6,10 +6,6 @@ const essentialComposers = baseUrl + "composer/list/rec.json";
 const divOfPiece = document.getElementById("pieceName");
 const divOfComposer = document.getElementById("composerName");
 
-// Initialize
-getComposer();
-listenForSubmit();
-
 function getComposer() {
 	axios.get(essentialComposers)
 		.then(data => {
@@ -19,6 +15,7 @@ function getComposer() {
 			const composerName = composers[num]["name"];
 			divOfComposer.textContent = "Composer: " + composerName;
 			getPiece(composerID);
+			listenForSubmit(composerName);
 		})
 		.catch(err => console.log(err));
 }
@@ -36,9 +33,16 @@ function getPiece(id) {
 		.catch(err => console.log(err));
 };
 
-function listenForSubmit() {
+function listenForSubmit(composerName) {
 	const submitButton = document.getElementById("submit");
 	submitButton.addEventListener("click", () => {
-		console.log("hi");
+		const inputField = document.getElementById('text');
+		if (inputField.value == composerName) {
+			console.log("Correct!");
+		} else {
+			console.log("Incorrect.");
+		}
 	});
 };
+
+getComposer();
